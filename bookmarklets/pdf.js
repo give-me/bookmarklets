@@ -1,5 +1,5 @@
 (function () {
-    /* v. 0.6, github.com/give-me/bookmarklets */
+    /* v. 0.7, github.com/give-me/bookmarklets */
     // Get elements with a dialog and others
     let elements = [];
     switch (location.hostname) {
@@ -20,6 +20,12 @@
             elements.push(document.querySelector('div.\\@container\\/main>div:first-child>div'));
             // Open thoughts
             elements.push(document.querySelector('aside'));
+            break;
+        case 'gemini.google.com':
+            // Dialog
+            elements.push(document.querySelector('#chat-history'));
+            // Open thoughts
+            elements.push(document.querySelector('extended-response-panel response-container'));
             break;
         default:
             return alert(location.hostname + ' is not supported');
