@@ -1,7 +1,7 @@
 (function () {
-    /* v. 0.7, github.com/give-me/bookmarklets */
+    /* v. 0.8, github.com/give-me/bookmarklets */
+    let elements = [], csp = false;
     // Get elements with a dialog and others
-    let elements = [];
     switch (location.hostname) {
         case 'claude.ai':
             // Dialog
@@ -14,6 +14,8 @@
             elements.push(document.querySelector('article').parentElement);
             // Open canvas
             elements.push(document.querySelector('section.popover>main'));
+            // CSP is strict
+            csp = true;
             break;
         case 'grok.com':
             // Dialog
@@ -26,13 +28,15 @@
             elements.push(document.querySelector('#chat-history'));
             // Open thoughts
             elements.push(document.querySelector('extended-response-panel response-container'));
+            // CSP is strict
+            csp = true;
             break;
         default:
             return alert(location.hostname + ' is not supported');
     }
     console.debug(`Found elements at ${location.hostname}:`, elements);
     elements = elements.filter(n => n);
-    if (confirm('Confirm if a PDF should be searchable')) {
+    if (csp || confirm('Confirm if a PDF should be searchable')) {
         // Clone elements to a temporary element
         let temp = document.createElement('div');
         temp.id = 'id-' + Math.random().toString(36).slice(2, 9);
