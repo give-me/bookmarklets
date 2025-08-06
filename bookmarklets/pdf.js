@@ -19,7 +19,7 @@
             break;
         case 'grok.com':
             // Dialog
-            elements.push(document.querySelector('div.\\@container\\/main>div:first-child>div'));
+            elements.push(document.querySelector('div#last-reply-container').parentElement);
             // Open thoughts
             elements.push(document.querySelector('aside'));
             break;
