@@ -26,8 +26,10 @@
         case 'gemini.google.com':
             // Dialog
             elements.push(document.querySelector('#chat-history'));
-            // Open thoughts
+            // Open panels
             elements.push(document.querySelector('extended-response-panel response-container'));
+            // Open reports
+            elements.push(document.querySelector('deep-research-immersive-panel>div.container'));
             // CSP is strict
             csp = true;
             break;
