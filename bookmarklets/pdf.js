@@ -13,7 +13,7 @@
             // Dialog
             elements.push(document.querySelector('article').parentElement);
             // Open canvas
-            elements.push(document.querySelector('section.popover>main'));
+            elements.push(document.querySelector('section.popover>section'));
             // CSP is strict
             csp = true;
             break;
