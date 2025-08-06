@@ -1,5 +1,5 @@
 (function () {
-    /* v. 0.8, github.com/give-me/bookmarklets */
+    /* v. 0.9, github.com/give-me/bookmarklets */
     let elements = [], csp = false;
     // Get elements with a dialog and others
     switch (location.hostname) {
@@ -13,21 +13,23 @@
             // Dialog
             elements.push(document.querySelector('article').parentElement);
             // Open canvas
-            elements.push(document.querySelector('section.popover>main'));
+            elements.push(document.querySelector('section.popover>section'));
             // CSP is strict
             csp = true;
             break;
         case 'grok.com':
             // Dialog
-            elements.push(document.querySelector('div.\\@container\\/main>div:first-child>div'));
+            elements.push(document.querySelector('div#last-reply-container').parentElement);
             // Open thoughts
             elements.push(document.querySelector('aside'));
             break;
         case 'gemini.google.com':
             // Dialog
             elements.push(document.querySelector('#chat-history'));
-            // Open thoughts
+            // Open panels
             elements.push(document.querySelector('extended-response-panel response-container'));
+            // Open reports
+            elements.push(document.querySelector('deep-research-immersive-panel>div.container'));
             // CSP is strict
             csp = true;
             break;
