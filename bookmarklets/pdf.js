@@ -1,5 +1,5 @@
 (function () {
-    /* v. 0.9, github.com/give-me/bookmarklets */
+    /* v. 0.10, github.com/give-me/bookmarklets */
     let elements = [], csp = false;
     // Get elements with a dialog and others
     switch (location.hostname) {
@@ -27,9 +27,9 @@
             // Dialog
             elements.push(document.querySelector('#chat-history'));
             // Open panels
-            elements.push(document.querySelector('extended-response-panel response-container'));
-            // Open reports
+            elements.push(document.querySelector('code-immersive-panel>div.container'));
             elements.push(document.querySelector('deep-research-immersive-panel>div.container'));
+            elements.push(document.querySelector('extended-response-panel response-container'));
             // CSP is strict
             csp = true;
             break;
