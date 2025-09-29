@@ -75,7 +75,7 @@
             }, 1000);
         } else {
             let script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.3/html2pdf.bundle.min.js';
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.12.1/html2pdf.bundle.min.js';
             script.onload = function () {
                 // Create a PDF from the first element
                 let pdf = html2pdf().set({
