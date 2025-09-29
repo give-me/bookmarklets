@@ -35,6 +35,6 @@ current date and time.
 
 ## About
 
-Source code is available [here](https://github.com/give-me/bookmarklets/blob/main/bookmarklets/pdf.js). When user
+Source code is available [here](https://github.com/give-me/bookmarklets/blob/main/bookmarklets/export.js). When user
 interfaces of chatbots change, this tool may need to be updated because the content of dialogs and related data are
 found using CSS selectors.
