@@ -25,6 +25,8 @@
             events = dialog.querySelectorAll('div.message-bubble');
             // Open thoughts
             extras.push(document.querySelector('aside'));
+            // CSP is strict
+            csp = true;
             break;
         case 'gemini.google.com':
             // Dialog
