@@ -1,5 +1,5 @@
 (function () {
-    /* v. 0.10, github.com/give-me/bookmarklets */
+    /* v. 0.11, github.com/give-me/bookmarklets */
     let dialog, events = [], extras = [], csp = false;
     // Get elements with a dialog and others
     switch (location.hostname) {
@@ -56,7 +56,7 @@
     // Get a timestamp for the filename
     let ts = new Date().toISOString().replace(/[-:T.]/g, '').slice(0, 14);
     // Offer options to the user
-    if (confirm('Confirm if you prefer export PDF instead of text')) {
+    if (confirm('Confirm if you prefer to export PDF instead of text')) {
         if (csp || confirm('Confirm if the PDF should be searchable')) {
             // Clone elements to a temporary element
             let temp = document.createElement('div');
