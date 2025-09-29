@@ -54,7 +54,41 @@
     // Get a timestamp for the filename
     let ts = new Date().toISOString().replace(/[-:T.]/g, '').slice(0, 14);
     // Offer options to the user
-    if (confirm('Confirm if you prefer export text instead of PDF')) {
+    if (confirm('Confirm if you prefer export PDF instead of text')) {
+        if (csp || confirm('Confirm if the PDF should be searchable')) {
+            // Clone elements to a temporary element
+            let temp = document.createElement('div');
+            temp.id = 'id-' + Math.random().toString(36).slice(2, 9);
+            blocks.forEach(el => temp.appendChild(el.cloneNode(true)));
+            // Print the temporary element
+            let style = document.createElement('style');
+            style.textContent = `@media print{body>*{display:none!important}#${temp.id}{display:flex!important;flex-direction:column}}`;
+            document.head.appendChild(style);
+            document.body.appendChild(temp);
+            print();
+            // Clean up after printing
+            setTimeout(() => {
+                document.head.removeChild(style);
+                document.body.removeChild(temp);
+            }, 1000);
+        } else {
+            let script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.3/html2pdf.bundle.min.js';
+            script.onload = function () {
+                // Create a PDF from the first element
+                let pdf = html2pdf().set({
+                    margin: 5,
+                    filename: `${ts}.pdf`,
+                    html2canvas: {scale: 2, logging: false}
+                }).from(blocks.shift());
+                // Add rest elements to the PDF
+                blocks.forEach(el => pdf = pdf.toPdf().get('pdf').then(pdfObj => pdfObj.addPage()).from(el).toContainer().toCanvas().toPdf());
+                // Render the PDF
+                pdf.save();
+            };
+            document.body.appendChild(script);
+        }
+    } else {
         // Generate text from dialog messages and extras
         let txt = events.map((e, i) => `# ${i % 2 ? 'AI' : 'Me'}:\n\n${e.innerText.trim()}\n\n`).join('');
         txt += extras.map((e, i) => `# Extra ${i + 1}:\n\n${e.innerText.trim()}\n\n`).join('');
@@ -66,37 +100,5 @@
         link.click();
         // Clean up after downloading
         URL.revokeObjectURL(link.href);
-    } else if (csp || confirm('Confirm if the PDF should be searchable')) {
-        // Clone elements to a temporary element
-        let temp = document.createElement('div');
-        temp.id = 'id-' + Math.random().toString(36).slice(2, 9);
-        blocks.forEach(el => temp.appendChild(el.cloneNode(true)));
-        // Print the temporary element
-        let style = document.createElement('style');
-        style.textContent = `@media print{body>*{display:none!important}#${temp.id}{display:flex!important;flex-direction:column}}`;
-        document.head.appendChild(style);
-        document.body.appendChild(temp);
-        print();
-        // Clean up after printing
-        setTimeout(() => {
-            document.head.removeChild(style);
-            document.body.removeChild(temp);
-        }, 1000);
-    } else {
-        let script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.3/html2pdf.bundle.min.js';
-        script.onload = function () {
-            // Create a PDF from the first element
-            let pdf = html2pdf().set({
-                margin: 5,
-                filename: `${ts}.pdf`,
-                html2canvas: {scale: 2, logging: false}
-            }).from(blocks.shift());
-            // Add rest elements to the PDF
-            blocks.forEach(el => pdf = pdf.toPdf().get('pdf').then(pdfObj => pdfObj.addPage()).from(el).toContainer().toCanvas().toPdf());
-            // Render the PDF
-            pdf.save();
-        };
-        document.body.appendChild(script);
     }
 })();
