@@ -94,7 +94,6 @@
         // Generate text from dialog messages and extras
         let txt = events.map((e, i) => `# ${i % 2 ? 'AI' : 'Me'}:\n\n${e.innerText.trim()}\n\n`).join('');
         txt += extras.map((e, i) => `# Extra ${i + 1}:\n\n${e.innerText.trim()}\n\n`).join('');
-        // extras.forEach((e, i) => txt += `# Extra ${i + 1}:\n\n${e.innerText.trim()}\n\n`);
         // Create a link to download the text file
         let href = URL.createObjectURL(new Blob(['\uFEFF', txt], {type: 'text/plain;charset=utf-8'}));
         let link = Object.assign(document.createElement('a'), {href: href, download: `${ts}.txt`});
