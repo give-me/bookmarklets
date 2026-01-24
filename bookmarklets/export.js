@@ -1,5 +1,5 @@
 (function () {
-    /* v. 0.11, github.com/give-me/bookmarklets */
+    /* v. 0.12, github.com/give-me/bookmarklets */
     let dialog, events = [], extras = [], csp = false;
     // Get elements with a dialog and others
     switch (location.hostname) {
@@ -7,8 +7,11 @@
             // Dialog
             dialog = document.querySelector('div[data-test-render-count]').parentElement;
             events = dialog.querySelectorAll('div[data-testid="user-message"], div[data-test-render-count]>div>div>div.font-claude-response');
+            // Open pasted parts of prompts
+            extras.push(document.querySelector('div.h-full.top-0 div.font-mono'));
             // Open artifacts
-            extras.push(document.querySelector('div.ease-out.w-full[class*="overflow-"]'));
+            extras.push(document.querySelector('div.h-full.top-0 div#wiggle-file-content'));
+            extras.push(document.querySelector('div.h-full.top-0 div#markdown-artifact'));
             break;
         case 'chatgpt.com':
             // Dialog
@@ -94,7 +97,6 @@
         // Generate text from dialog messages and extras
         let txt = events.map((e, i) => `# ${i % 2 ? 'AI' : 'Me'}:\n\n${e.innerText.trim()}\n\n`).join('');
         txt += extras.map((e, i) => `# Extra ${i + 1}:\n\n${e.innerText.trim()}\n\n`).join('');
-        // extras.forEach((e, i) => txt += `# Extra ${i + 1}:\n\n${e.innerText.trim()}\n\n`);
         // Create a link to download the text file
         let href = URL.createObjectURL(new Blob(['\uFEFF', txt], {type: 'text/plain;charset=utf-8'}));
         let link = Object.assign(document.createElement('a'), {href: href, download: `${ts}.txt`});
