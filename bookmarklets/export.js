@@ -1,5 +1,5 @@
 (function () {
-    /* v. 0.11, github.com/give-me/bookmarklets */
+    /* v. 0.12, github.com/give-me/bookmarklets */
     let dialog, events = [], extras = [], csp = false;
     // Get elements with a dialog and others
     switch (location.hostname) {
