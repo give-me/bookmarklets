@@ -7,8 +7,11 @@
             // Dialog
             dialog = document.querySelector('div[data-test-render-count]').parentElement;
             events = dialog.querySelectorAll('div[data-testid="user-message"], div[data-test-render-count]>div>div>div.font-claude-response');
+            // Open pasted parts of prompts
+            extras.push(document.querySelector('div.h-full.top-0 div.font-mono'));
             // Open artifacts
-            extras.push(document.querySelector('div.ease-out.w-full[class*="overflow-"]'));
+            extras.push(document.querySelector('div.h-full.top-0 div#wiggle-file-content'));
+            extras.push(document.querySelector('div.h-full.top-0 div#markdown-artifact'));
             break;
         case 'chatgpt.com':
             // Dialog
