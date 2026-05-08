@@ -1,22 +1,23 @@
 (function () {
-    /* v. 0.12, github.com/give-me/bookmarklets */
+    /* v. 0.13, github.com/give-me/bookmarklets */
     let dialog, events = [], extras = [], csp = false;
     // Get elements with a dialog and others
     switch (location.hostname) {
         case 'claude.ai':
             // Dialog
             dialog = document.querySelector('div[data-test-render-count]').parentElement;
-            events = dialog.querySelectorAll('div[data-testid="user-message"], div[data-test-render-count]>div>div>div.font-claude-response');
+            events = dialog.querySelectorAll('div[data-testid="user-message"], div.font-claude-response');
             // Open pasted parts of prompts
             extras.push(document.querySelector('div.h-full.top-0 div.font-mono'));
             // Open artifacts
-            extras.push(document.querySelector('div.h-full.top-0 div#wiggle-file-content'));
-            extras.push(document.querySelector('div.h-full.top-0 div#markdown-artifact'));
+            extras.push(document.querySelector('div#wiggle-file-content>div'));
+            extras.push(document.querySelector('div#markdown-artifact>div'));
+            extras.push(document.querySelector('div#artifacts-component-root-pdf>div'));
             break;
         case 'chatgpt.com':
             // Dialog
-            dialog = document.querySelector('article').parentElement;
-            events = dialog.querySelectorAll('div[data-message-author-role]');
+            dialog = document.querySelector('#thread');
+            events = dialog.querySelectorAll('section>div>div>div>div[data-message-author-role]');
             // Open canvas
             extras.push(document.querySelector('section.popover>section'));
             // CSP is strict
@@ -95,8 +96,8 @@
         }
     } else {
         // Generate text from dialog messages and extras
-        let txt = events.map((e, i) => `# ${i % 2 ? 'AI' : 'Me'}:\n\n${e.innerText.trim()}\n\n`).join('');
-        txt += extras.map((e, i) => `# Extra ${i + 1}:\n\n${e.innerText.trim()}\n\n`).join('');
+        let txt = events.map(e => `# Message:\n\n${e.textContent.trim()}\n\n`).join('');
+        txt += extras.map((e, i) => `# Extra ${i + 1}:\n\n${e.textContent.trim()}\n\n`).join('');
         // Create a link to download the text file
         let href = URL.createObjectURL(new Blob(['\uFEFF', txt], {type: 'text/plain;charset=utf-8'}));
         let link = Object.assign(document.createElement('a'), {href: href, download: `${ts}.txt`});
