@@ -6,12 +6,13 @@
         case 'claude.ai':
             // Dialog
             dialog = document.querySelector('div[data-test-render-count]').parentElement;
-            events = dialog.querySelectorAll('div[data-testid="user-message"], div[data-test-render-count]>div>div>div.font-claude-response');
+            events = dialog.querySelectorAll('div[data-testid="user-message"], div.font-claude-response');
             // Open pasted parts of prompts
             extras.push(document.querySelector('div.h-full.top-0 div.font-mono'));
             // Open artifacts
-            extras.push(document.querySelector('div.h-full.top-0 div#wiggle-file-content'));
-            extras.push(document.querySelector('div.h-full.top-0 div#markdown-artifact'));
+            extras.push(document.querySelector('div#wiggle-file-content>div'));
+            extras.push(document.querySelector('div#markdown-artifact>div'));
+            extras.push(document.querySelector('div#artifacts-component-root-pdf>div'));
             break;
         case 'chatgpt.com':
             // Dialog
