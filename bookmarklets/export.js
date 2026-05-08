@@ -3,6 +3,11 @@
     let dialog, events = [], extras = [], csp = false;
     // Get elements with a dialog and others
     switch (location.hostname) {
+        case 'www.google.com':
+            // Dialog
+            dialog = document.querySelector('div[data-xid=aim-mars-turn-root]');
+            events = dialog.querySelectorAll('span[role=heading], div[data-streaming-container]');
+            break;
         case 'claude.ai':
             // Dialog
             dialog = document.querySelector('div[data-test-render-count]').parentElement;
