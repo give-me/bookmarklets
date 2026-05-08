@@ -16,8 +16,8 @@
             break;
         case 'chatgpt.com':
             // Dialog
-            dialog = document.querySelector('article').parentElement;
-            events = dialog.querySelectorAll('div[data-message-author-role]');
+            dialog = document.querySelector('#thread');
+            events = dialog.querySelectorAll('section>div>div>div>div[data-message-author-role]');
             // Open canvas
             extras.push(document.querySelector('section.popover>section'));
             // CSP is strict
