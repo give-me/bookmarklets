@@ -49,6 +49,25 @@
             csp = true;
             break;
         default:
+            let identifier;
+            // Open WebUI with the sidebar expanded
+            identifier = document.evaluate('//*/div[@id="sidebar"]/*/div[contains(@class, "sidebar")]//*[text() = "Open WebUI"]', document).iterateNext();
+            if (typeof identifier !== 'undefined' && identifier !== null) {
+                dialog = document.querySelector('[aria-labelledby="chat-conversation"]');
+                if (typeof dialog === 'object' && dialog !== null && typeof dialog.querySelectorAll !== 'undefined') {
+                    events = dialog.querySelectorAll('div.chat-user, div#response-content-container');
+                    break;
+                }
+            }
+            // Open WebUI with the sidebar closed
+            identifier = document.evaluate('//*/div[@id="sidebar"]//*/div/button[contains(@aria-label, "Open Sidebar")]', document).iterateNext();
+            if (typeof identifier !== 'undefined' && identifier !== null) { // there is no clear identifier...
+                dialog = document.querySelector('[aria-labelledby="chat-conversation"]');
+                if (typeof dialog === 'object' && dialog !== null && typeof dialog.querySelectorAll !== 'undefined') {
+                    events = dialog.querySelectorAll('div.chat-user, div#response-content-container');
+                    break;
+                }
+            }
             return alert(location.hostname + ' is not supported');
     }
     // Filter arrays
