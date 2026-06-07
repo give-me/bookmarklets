@@ -10,7 +10,7 @@
             break;
         case 'claude.ai':
             // Dialog
-            dialog = document.querySelector('div[data-test-render-count]').parentElement;
+            dialog = document.querySelector('div[data-test-render-count]').parentElement.parentElement;
             events = dialog.querySelectorAll('div[data-testid="user-message"], div.font-claude-response');
             // Open pasted parts of prompts
             extras.push(document.querySelector('div.h-full.top-0 div.font-mono'));
